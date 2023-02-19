@@ -33,6 +33,6 @@ const ResturantSchema = new mongoose.Schema(
     }
 )
 
-const Post = mongoose.model('User', PostSchema);
+const Restaurant = mongoose.model('Restaurant', ResturantSchema);
 
-module.exports = Post;
+module.exports = Restaurant;

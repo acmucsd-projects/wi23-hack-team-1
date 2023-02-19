@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema(
             type: String,
             require: true
         },
+        password: {
+            type: String,
+            require: true
+        },
         profilePic: {
             type: String,
             require: true
@@ -18,8 +22,16 @@ const UserSchema = new mongoose.Schema(
             type: Number,
             require: true
         },
-        postIDs: {
-            type: [String],
+        posts: {
+            type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+            require: true
+        },
+        friends: {
+            type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+            require: true
+        },
+        restaurantsReviewd: {
+            type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant'}],
             require: true
         }
     }
