@@ -4,7 +4,7 @@ const PostSchema = new mongoose.Schema(
     {
         restaurant: {
             type: {type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant'},
-            require: true
+            // require: true
         },
         image: {
             type: String,
@@ -23,12 +23,12 @@ const PostSchema = new mongoose.Schema(
             require: true
         },
         PostedBy: {
-            type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-            require: true
+            type: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+            // require: true
         }
     }
 )
 
-const Post = mongoose.model('User', PostSchema);
+const Post = mongoose.model('Post', PostSchema, "PostCollection");
 
 module.exports = Post;

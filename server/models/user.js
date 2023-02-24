@@ -19,12 +19,16 @@ const UserSchema = new mongoose.Schema(
             require: true
         },
         postIDs: {
-            type: [String],
+            type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+            require: true
+        },
+        friends: {
+            type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
             require: true
         }
     }
 )
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema, "UserCollection");
 
 module.exports = User;
