@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const config = require('./config');
 
 
 const postsRouter = require('./routes/posts');
@@ -11,6 +12,7 @@ const usersRouter = require('./routes/users');
 const Post = require('./models/post');
 // const Restaurant = require('./models/restaurant');
 // const User = require('./models/user');
+const usersRouter = require('./routes/user');
 
 const app = express();
 app.use(logger('dev'));
@@ -47,6 +49,10 @@ db.once('open', function() {
     });
 
    
+mongoose.connect(config.databaseUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true }).then(() => {
+console.log('Connected to MongoDB database');
 });
 
 
@@ -79,5 +85,6 @@ db.once('open', function() {
 //       db.close();
 //     });
 // });
+
 
 module.exports = app;

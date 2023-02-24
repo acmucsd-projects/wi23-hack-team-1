@@ -1,0 +1,16 @@
+{
+    "restaurant": {
+        "name": "inNout",
+        "location": [4,4],
+        "description": "good burgers",
+        "tags": "fast food",
+        "price": 2
+    },
+    "restaurant2": {
+        "name": "mcdo",
+        "location": [2,6],
+        "description": "good fries",
+        "tags": "fast food",
+        "price": 2
+    }
+}
