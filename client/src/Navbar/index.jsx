@@ -46,7 +46,7 @@ const Navbar = () => {
             <Chip label="My Profile" onClick={handleProfileClick} />
           </a>
         </Stack>
-        <a href="/login">
+        <a href="/">
           <LogoutIcon onClick={handleLogoutClick} />
         </a>
       </nav>
