@@ -8,18 +8,43 @@ form{
     justify-content: center;
 }
 
-/* .foodIcon {
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
-    margin-bottom: 8%;
-    padding-right: 3%;
-} */
+.food_image {
+    flex: 60%;
+    width: 60%;
+    height: 100vh;
+    overflow: hidden;
+}
 
-.title {
+img {
+    height: 100%;
+}
+
+.foodIcon {
     display: flex;
     justify-content: center;
     margin-top: 5%;
     margin-bottom: 8%;
     padding-right: 3%;
+}
+
+#app_name {
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+#create_account_button {
+    width: 60%;
+    height: 8%;
+    font-size: 20px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    font-weight: 700;
+    background: #007AFF;
+}
+
+.create-row {
+    padding-bottom: 5%;
 }
