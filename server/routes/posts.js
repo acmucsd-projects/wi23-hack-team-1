@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/post', async (req, res) => {
+// Post operation
+router.post('/post/post', async (req, res) => {
     const { post } = req.body;
     const { restaurant, image, review, likes, rating, postedBy } = post
     if ((!restaurant || !image || !review || !postedBy || !likes || !rating)) {
@@ -9,6 +10,35 @@ router.post('/post', async (req, res) => {
     } else {
         const newPost = await Post.create(newPost);
         res.status(200).json({ post: newPost });
+    }
+});
+
+// Get a single item
+router.get('/post/get', async (req, res) => {
+    try {
+      const postId = req.params.postId;
+      const post = await Post.findById(postId);
+      if (!post) {
+        res.status(404).json({ error: 'Post not found' });
+      } else {
+        res.status(200).json({ post });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.delete('/post/delete', async (req, res) => {
+    try {
+      const postId = req.params.postId;
+      const deletedPost = await Post.findByIdAndDelete(postId);
+      if (!deletedPost) {
+        res.status(404).json({ error: 'Post not found' });
+      } else {
+        res.status(200).json({ post: deletedPost });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Internal server error' });
     }
 });
 
