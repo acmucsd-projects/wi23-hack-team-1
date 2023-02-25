@@ -1,14 +1,23 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    gap: 10px;
-    background: linear-gradient(to right, #efefbb ,#d4d3dd)
-  }
-  
-  .navlinks {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(to right, #efefbb ,#d4d3dd);
+}
+
+.navlinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 15px;
+}
+
+.navlinks > * {
+  flex: 1;
+}
+
+.search-container {
+  flex: 2;
+}

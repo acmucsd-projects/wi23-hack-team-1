@@ -43,7 +43,7 @@ const Navbar = () => {
             <Chip label="Make a Post" onClick={handlePostClick} />
           </a>
           <a href="/profile">
-            <Chip label="Clickable" onClick={handleProfileClick} />
+            <Chip label="My Profile" onClick={handleProfileClick} />
           </a>
         </Stack>
         <a href="/login">
