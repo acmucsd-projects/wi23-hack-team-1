@@ -1,0 +1,73 @@
+form {
+    display: flex;
+}
+.login {
+    font: "Roboto";
+    flex: 50%;
+    justify-content: center;
+}
+.food_image {
+    flex: 60%;
+    width: 60%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+img {
+    height: 100%;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 8%;
+    padding-right: 3%;
+}
+
+#app_name {
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 5rem;
+    font-weight: 500;
+}
+
+#sign_in_bttn, #google_bttn {
+    width: 60%;
+    height: 8%;
+    font-size: 20px;
+    text-transform: capitalize;
+    border-radius: 8px;
+}
+
+#sign_in_bttn {
+    font-weight: 700;
+    background: #007AFF;
+}
+
+#google_bttn {
+    color: #3C4043;
+    font-weight: 500;
+    border: 1px solid #DADCE0;
+    box-shadow: 0px 1px 2px 0px #00000040;
+}
+
+#or {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.form-group {
+    padding-bottom: 5%;
+}
+
+.register_account {
+    margin-top: 8%;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+#sign_up {
+    color: #007AFF;
+}
