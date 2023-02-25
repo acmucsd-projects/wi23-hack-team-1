@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import restaurant from './restaurant.jpeg';
+import { Link, useNavigate } from 'react-router-dom';
+import restaurant from '../restaurant.jpeg';
 import FoodBankOutlinedIcon from '@mui/icons-material/FoodBankOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
 import Visibility from '@mui/icons-material/Visibility';
@@ -16,6 +16,7 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  const navigate = useNavigate();
   return (
     <form>
         <div className="food_image">
@@ -56,7 +57,7 @@ function Login() {
               />
             </FormControl>
           </div>
-          <Button id="sign_in_bttn" variant="contained">Sign In</Button>
+          <Button id="sign_in_bttn" variant="contained" onClick={() => navigate("/home")}>Sign In</Button>
           <div className="register_account">
             Don't have an account? <Link id="sign_up" to="/register">Sign up now</Link>
           </div>

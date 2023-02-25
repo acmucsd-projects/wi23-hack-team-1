@@ -1,0 +1,11 @@
+.post_wrapper {
+    font: "Roboto";
+}
+.search-group {
+    margin-top: 5%;
+    padding-bottom: 3%;
+}
+
+.image_upload, .rating, .review {
+    margin-bottom: 3%;
+}
