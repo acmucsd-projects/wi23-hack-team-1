@@ -33,7 +33,9 @@ const getPost = async (req, res) => {
 const createPost = async (req, res) => {
     const {
         username,
+        restaurant,
         image,
+        postTitle,
         review,
         stars
     } = req.body
@@ -41,7 +43,9 @@ const createPost = async (req, res) => {
     try {
         const post = await Post.create({
             username,
+            restaurant,
             image,
+            postTitle,
             review,
             stars
         })

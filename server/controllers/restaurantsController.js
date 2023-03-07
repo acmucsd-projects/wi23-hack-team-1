@@ -82,7 +82,7 @@ const updateRestaurant = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
-            error: 'No such restaurant'
+            error: 'No such restaurant 123'
         })
     }
 
@@ -101,6 +101,7 @@ const updateRestaurant = async (req, res) => {
     res.status(200).json(restaurant)
 
 }
+
 
 module.exports = {
     createRestaurant,
