@@ -1,4 +1,5 @@
 const Restaurant = require('../models/restaurantModel');
+const Post = require('../models/postModel');
 const mongoose = require('mongoose')
 // get all restaurants 
 const getRestaurants = async (req, res) => {
@@ -13,6 +14,7 @@ const getRestaurant = async (req, res) => {
     const {
         id
     } = req.params
+    
     const restaurant = await Restaurant.findById(id)
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -99,14 +101,34 @@ const updateRestaurant = async (req, res) => {
     }
 
     res.status(200).json(restaurant)
-
 }
 
+// GET all Posts related to a Restaurant by location
+// Note: this function returns POSTS 
+const getReviews = async (req, res) => {
+    const {
+        location
+    } = req.params
+    const post = await Restaurant.find({location})
+
+    if (!mongoose.Types.ObjectId.isValid(location)) {
+        return res.status(404).json({
+            error: 'No such restaurant'
+        })
+    }
+    if (!post) {
+        return res.status(404).json({
+            error: 'No such restaurant'
+        })
+    }
+    res.status(200).json(restaurant)
+}
 
 module.exports = {
     createRestaurant,
     getRestaurants,
     getRestaurant,
     deleteRestaurant,
-    updateRestaurant
+    updateRestaurant, 
+    getReviews
 }

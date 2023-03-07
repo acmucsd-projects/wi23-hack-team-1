@@ -4,7 +4,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-// import all routers 
+// import all routers
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const restaurantsRouter = require('./routes/restaurants');

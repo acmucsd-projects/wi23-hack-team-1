@@ -6,7 +6,8 @@ const {
   getRestaurants,
   getRestaurant,
   deleteRestaurant,
-  updateRestaurant
+  updateRestaurant, 
+  getReviews
 } = require('../controllers/restaurantsController')
 
 const Restaurant = require('../models/restaurantModel');
@@ -17,6 +18,9 @@ router.get('/', getRestaurants);
 
 // GET a single restaurants 
 router.get('/:id', getRestaurant);
+
+// GET a single restaurants 
+router.get('/', getReviews);
 
 // POST a new restaurants 
 router.post('/', createRestaurant);

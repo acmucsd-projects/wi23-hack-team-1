@@ -6,7 +6,8 @@ const {
   getPost,
   getPosts,
   updatePost,
-  deletePost
+  deletePost,
+  getPostsByUsername
 } = require('../controllers/postsController')
 
 const Post = require('../models/postModel');
@@ -14,6 +15,9 @@ const router = express.Router();
 
 // GET all posts 
 router.get('/', getPosts);
+
+// GETs all posts by users 
+router.get('/', getPostsByUsername);
 
 // GET a single post 
 router.get('/:id', getPost);
@@ -26,6 +30,7 @@ router.delete('/:id', deletePost);
 
 // UPDATES a post 
 router.patch('/:id', updatePost);
+
 
 
 module.exports = router;

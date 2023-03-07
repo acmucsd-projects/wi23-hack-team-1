@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 // get all users 
 const getUsers = async (req, res) => {
     const users = await User.find({}).sort({
@@ -32,7 +32,6 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     const {
         username,
-        postCount, 
         profilePic, 
         friends
     } = req.body
@@ -40,7 +39,6 @@ const createUser = async (req, res) => {
     try {
         const user = await User.create({
             username,
-            postCount, 
             profilePic, 
             friends
         })
@@ -96,10 +94,10 @@ const updateUser = async (req, res) => {
             error: 'No such user'
         })
     }
-    
     res.status(200).json(user)
-
 }
+
+// if you want to get all POSTS by USERNAME, look at postsContoller.js
 
 
 module.exports = {
