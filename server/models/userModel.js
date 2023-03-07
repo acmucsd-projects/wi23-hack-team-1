@@ -7,25 +7,17 @@ const userSchema = new Schema({
         type: String, 
         required: true
     }, 
-    friendCount: {
-        type: Number, 
-        required: true
-    }, 
     postCount: {
         type: Number, 
         required: true
     },
     profilePic: {
         type: String,
+    }, 
+    friends : {
+        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+        required: true
     }
-    // , 
-    // friends : {
-    //     type: [userSchema]
-    // }
-    // also need to add the users': 
-        // - posts 
-        // - restaurant reviews 
-        // - friends
 },{timestamps: true})
 
 module.exports = mongoose.model('User', userSchema)
