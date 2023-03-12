@@ -5,6 +5,7 @@ import SignupPage from './signupPage/signupPage';
 import Home from "./Home/Home";
 import Post from "./Post/Post";
 import ProfilePage from "./ProfilePage";
+import RestaurantPage from "./RestaurantPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/post" element={<Post />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/restaurant" element={<RestaurantPage />} />
       </Routes>
     </div>
     </Router>

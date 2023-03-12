@@ -1,12 +1,21 @@
-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-.on {
-  color: #000;
-}
-.off {
-  color: #ccc;
-}
+.star-rating {
+    display: inline-block;
+    font-size: 24px;
+  }
+  
+  .star {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #ccc;
+  }
+  
+  .star.filled {
+    color: #fdd835;
+    background: linear-gradient(to right, #fdd835 50%, #ccc 50%);
+    background-size: 20px 20px;
+    -webkit-text-fill-color: transparent;
+  }
+  

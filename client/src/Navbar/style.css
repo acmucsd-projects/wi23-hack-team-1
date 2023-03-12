@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(to right, #efefbb ,#d4d3dd);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add this line */
 }
 
 .navlinks {

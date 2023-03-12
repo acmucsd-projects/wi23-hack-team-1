@@ -4,7 +4,7 @@ import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
 import Navbar from "../Navbar/index.jsx";
 
-const ProfilePage = () => {
+const RestaurantPage = () => {
   return (
     <div>
       <Navbar /> {/* include the Navbar component */}
@@ -25,27 +25,27 @@ const ProfilePage = () => {
           <div class="friends-list">
             <h2>Friends</h2>
             <div class="friend-card">
-              <img src="friend1.jpg" alt="Friend 1" />
+              <img src="res1.jpg" alt="Res 1" />
               <div class="friend-card-info">
-                <div class="friend-name">Friend 1</div>
+                <div class="friend-name">Res 1</div>
             </div>
           </div>
           <div class="friend-card">
-            <img src="friend2.jpg" alt="Friend 2" />
+            <img src="res2.jpg" alt="Res 2" />
             <div class="friend-card-info">
-              <div class="friend-name">Friend 2</div>
+              <div class="friend-name">Res 2</div>
             </div>
           </div>
           <div class="friend-card">
-            <img src="friend3.jpg" alt="Friend 3" />
+            <img src="res3.jpg" alt="Res 3" />
             <div class="friend-card-info">
-              <div class="friend-name">Friend 3</div>
+              <div class="friend-name">Res 3</div>
             </div>
           </div>
           <div class="friend-card">
-            <img src="friend4.jpg" alt="Friend 4" />
+            <img src="res4.jpg" alt="Res 4" />
             <div class="friend-card-info">
-              <div class="friend-name">Friend 4</div>
+              <div class="friend-name">Res 4</div>
             </div>
           </div>
         </div>
@@ -74,4 +74,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default RestaurantPage;
