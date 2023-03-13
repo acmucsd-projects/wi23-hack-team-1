@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import restaurant from '../restaurant.jpeg';
 import FoodBankOutlinedIcon from '@mui/icons-material/FoodBankOutlined';
-import GoogleIcon from '@mui/icons-material/Google';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button, TextField, FormControl, OutlinedInput, 
 InputLabel, InputAdornment, IconButton } from '@mui/material';
+import { GoogleLogin } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
 import "./Login.css";
+
 function Login() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +30,21 @@ function Login() {
           <FoodBankOutlinedIcon sx={{ fontSize: "10rem" }}></FoodBankOutlinedIcon>
           <h1 id="app_name">IGFood</h1>
           </div>
-          <Button id="google_bttn" variant="outlined" startIcon={<GoogleIcon />}>Sign in with Google</Button>
+          <div className="google_login">
+          <GoogleLogin
+          onSuccess={credentialResponse => {
+            if (credentialResponse.credential != null) {
+              const USER = jwtDecode(credentialResponse.credential);
+              setName(USER.name);
+              setEmail(USER.email);
+              navigate("/home")
+            }
+          }}
+          onError={() => {
+            console.log('Login Failed');
+          }}
+        />
+        </div>
           <h4 id="or">or</h4>
           <div className="form-group">
               <TextField id="outlined-basic" sx={{ width: "60%", backgroundColor: "#F5F5F5" }} 
@@ -59,7 +76,7 @@ function Login() {
           </div>
           <Button id="sign_in_bttn" variant="contained" onClick={() => navigate("/home")}>Sign In</Button>
           <div className="register_account">
-            Don't have an account? <Link id="sign_up" to="/register">Sign up now</Link>
+            Don't have an account? <Link id="sign_up" to="/signup">Sign up now</Link>
           </div>
       </div>
     </form>
