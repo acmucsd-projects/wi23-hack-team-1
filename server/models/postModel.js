@@ -11,10 +11,6 @@ const postSchema = new Schema({
     }, 
     restaurant: { // where did they eat
         type: {type: mongoose.Schema.ObjectId, ref: 'Restaurant'}
-    },
-    image: { // pictures of the food
-        data: Buffer,
-        contentType: String
     }, 
     postTitle: { // title of the post (like reddit lol)
         type: String, 
