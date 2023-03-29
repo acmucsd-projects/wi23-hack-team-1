@@ -33,14 +33,18 @@ const createUser = async (req, res) => {
     const {
         username,
         profilePic, 
-        friends
+        friends, 
+        email, 
+        password
     } = req.body
     // this adds a user document to DB ! 
     try {
         const user = await User.create({
             username,
             profilePic, 
-            friends
+            friends, 
+            email,
+            password
         })
         res.status(200).json(user)
     } catch (error) {
