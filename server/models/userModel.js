@@ -16,7 +16,7 @@ const userSchema = new Schema({
     }, 
     friends : { // friends are just an array of User objects
         type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-        
+         
     },
     email : {
         type: String, 
