@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import StarRating from "../StarRating/index.jsx";
 
-const Post = (props) => {
+const UserPost = (props) => {
   const { username, profilepicture, image, caption } = props;
 
   return (
@@ -28,4 +28,4 @@ const Post = (props) => {
   );
 }
 
-export default Post;
+export default UserPost;

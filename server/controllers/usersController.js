@@ -32,6 +32,8 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     const {
         username,
+        email,
+        password,
         profilePic, 
         friends
     } = req.body
@@ -39,6 +41,8 @@ const createUser = async (req, res) => {
     try {
         const user = await User.create({
             username,
+            email,
+            password,
             profilePic, 
             friends
         })

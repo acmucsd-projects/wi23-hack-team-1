@@ -3,6 +3,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 // import all routers
 const usersRouter = require('./routes/users');
@@ -13,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(logger('dev'));
+app.use(cors());
 
 // checks if the request has a body and attaches it to the 
 // request object

@@ -8,10 +8,11 @@ import { Button, TextField, FormControl, OutlinedInput,
 InputLabel, InputAdornment, IconButton } from '@mui/material';
 import { GoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
+import bcrypt from 'bcryptjs';
+import API from '../API';
 import "./Login.css";
 
 function Login() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +21,51 @@ function Login() {
     event.preventDefault();
   };
   const navigate = useNavigate();
+  const salt = bcrypt.genSaltSync(10);
+  const handleLoginUser = async () => {
+      const users = await API.getUsers();
+      let userFound = false;
+      for (let user of users.data){
+        if (user.email === email){
+          userFound = true;
+          if (bcrypt.compare(password, user.password)){
+              localStorage.setItem('user', user._id)
+              navigate("/home");
+          }
+          else{
+            alert("Wrong Password Entered");
+          }
+        }
+      }
+      if (!userFound) {
+        alert("User with email " + email + " not found.");
+      }
+  };
+  const handleGoogleUser = async (credentialResponse) => {
+    if (credentialResponse.credential != null) {
+      const USER = jwtDecode(credentialResponse.credential);
+      const users = await API.getUsers();
+      let userFound = false;
+      for (let user of users.data){
+        if (user.email === USER.email){
+          userFound = true;
+          localStorage.setItem('user', user._id);
+          navigate("/home");
+        }
+      }
+      if (!userFound) {
+        const payload = {
+          username: USER.name,
+          email: USER.email,
+          password: bcrypt.hashSync(credentialResponse.credential, salt),
+          profilePic: "placeholder"
+        };
+        const response  = await API.createUser(payload);
+        localStorage.setItem('user', response.data._id);
+        navigate("/home");
+      }
+    }
+  }
   return (
     <form>
         <div className="food_image">
@@ -32,14 +78,7 @@ function Login() {
           </div>
           <div className="google_login">
           <GoogleLogin
-          onSuccess={credentialResponse => {
-            if (credentialResponse.credential != null) {
-              const USER = jwtDecode(credentialResponse.credential);
-              setName(USER.name);
-              setEmail(USER.email);
-              navigate("/home")
-            }
-          }}
+          onSuccess={handleGoogleUser}
           onError={() => {
             console.log('Login Failed');
           }}
@@ -74,7 +113,7 @@ function Login() {
               />
             </FormControl>
           </div>
-          <Button id="sign_in_bttn" variant="contained" onClick={() => navigate("/home")}>Sign In</Button>
+          <Button id="sign_in_bttn" variant="contained" onClick={handleLoginUser}>Sign In</Button>
           <div className="register_account">
             Don't have an account? <Link id="sign_up" to="/signup">Sign up now</Link>
           </div>
