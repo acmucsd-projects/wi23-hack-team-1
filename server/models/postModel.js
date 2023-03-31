@@ -29,6 +29,9 @@ const postSchema = new Schema({
             },
             message: 'Stars must be between 0 and 5'
         }
+    }, 
+    image: {
+        type: String
     }
 },{timestamps: true})
 

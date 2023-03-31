@@ -11,18 +11,18 @@ const userSchema = new Schema({
         type: String, 
         required: true
     },
-    profilePic: { // image 
+    image: { // image 
         type: String,
     }, 
-    friends : { // friends are just an array of User objects
+    friends: { // friends are just an array of User objects
         type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
          
     },
-    email : {
+    email: {
         type: String, 
         required: true
     }, 
-    password : {
+    password: {
         type: String, 
         required: true
     }

@@ -40,7 +40,4 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/restaurants', restaurantsRouter);
 
-
-
-
 module.exports = app;

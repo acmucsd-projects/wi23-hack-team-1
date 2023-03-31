@@ -38,7 +38,7 @@ router.delete('/:id', deleteUser);
 router.patch('/:id', updateUser);
 
 // upload image 
-router.put("/:id/picture", storage.single("image"), uploadPicture) 
+router.put("/:id/image", storage.single("image"), uploadPicture) 
 
 
 

@@ -7,8 +7,19 @@ const {
   getPosts,
   updatePost,
   deletePost,
-  getPostsByUsername
+  getPostsByUsername, 
+  uploadPostImage
 } = require('../controllers/postsController')
+
+const fileSizeLimitInBytes = 2 * 1024 * 1024;
+const multer = require("multer");
+const storage = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: fileSizeLimitInBytes
+    },
+});
+
 
 const Post = require('../models/postModel');
 const router = express.Router();
@@ -31,6 +42,8 @@ router.delete('/:id', deletePost);
 // UPDATES a post 
 router.patch('/:id', updatePost);
 
+// upload image 
+router.put("/:id/image", storage.single("image"), uploadPostImage) 
 
 
 module.exports = router;

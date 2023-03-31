@@ -1,7 +1,9 @@
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
-
-const { upload } = require("../storage");
+const path = require('path');
+const {
+    upload
+} = require("../storage");
 
 // get all users 
 const getUsers = async (req, res) => {
@@ -35,16 +37,17 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     const {
         username,
-        profilePic,
+        image,
         friends,
         email,
         password
     } = req.body
+    //req.body.image = req.file.path
     // this adds a user document to DB ! 
     try {
         const user = await User.create({
             username,
-            profilePic,
+            image,
             friends,
             email,
             password
@@ -56,6 +59,9 @@ const createUser = async (req, res) => {
         })
     }
 }
+
+
+
 
 // delete a user 
 const deleteUser = async (req, res) => {
@@ -120,7 +126,7 @@ const uploadPicture = async (req, res) => {
     const profilePicture = await upload(req.file, id);
     const user = await User.findByIdAndUpdate(
         id, {
-            profilePic: profilePicture
+            image: profilePicture
         }, {
             new: true
         }
