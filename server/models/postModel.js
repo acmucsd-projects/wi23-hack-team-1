@@ -7,10 +7,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const postSchema = new Schema({
     username: { // who posted it
-        type: {type: mongoose.Schema.ObjectId, ref: 'User'}
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }, 
     restaurant: { // where did they eat
-        type: {type: mongoose.Schema.ObjectId, ref: 'Restaurant'}
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Restaurant',
+        required: true
     },
     image: { // pictures of the food
         data: Buffer,
