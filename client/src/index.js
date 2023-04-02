@@ -7,6 +7,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 require('dotenv').config();
 
+require('dotenv').config();
+
 ReactDOM.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
