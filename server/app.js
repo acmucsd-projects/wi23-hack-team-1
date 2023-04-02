@@ -4,10 +4,12 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+
 // import all routers
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const restaurantsRouter = require('./routes/restaurants');
+//const imagesRouter = require('./routes/images');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -37,7 +39,5 @@ mongoose.connect(process.env.DB_URL, {
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/restaurants', restaurantsRouter);
-
-
 
 module.exports = app;
