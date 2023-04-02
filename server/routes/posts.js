@@ -14,10 +14,10 @@ const {
 const fileSizeLimitInBytes = 2 * 1024 * 1024;
 const multer = require("multer");
 const storage = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-        fileSize: fileSizeLimitInBytes
-    },
+  storage: multer.memoryStorage(),
+  limits: {
+      fileSize: fileSizeLimitInBytes
+  },
 });
 
 
@@ -42,7 +42,7 @@ router.delete('/:id', deletePost);
 // UPDATES a post 
 router.patch('/:id', updatePost);
 
-// upload image 
+// UPLOAD image 
 router.put("/:id/image", storage.single("image"), uploadPostImage) 
 
 
