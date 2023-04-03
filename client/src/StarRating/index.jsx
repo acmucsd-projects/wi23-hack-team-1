@@ -1,16 +1,23 @@
 import React from "react";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import "./style.css";
 
-const StarRating = (props) => {
-  const { rating } = props;
+const StarRating = ({ totalPosts, totalStars }) => {
+  const averageStars = totalStars / totalPosts;
+  const fullStars = Math.floor(averageStars);
+  const hasHalfStar = averageStars - fullStars >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <div className="star-rating">
-      <span className={`star ${rating >= 0.5 ? "filled" : ""}`}>&#9733;</span>
-      <span className={`star ${rating >= 1.5 ? "filled" : ""}`}>&#9733;</span>
-      <span className={`star ${rating >= 2.5 ? "filled" : ""}`}>&#9733;</span>
-      <span className={`star ${rating >= 3.5 ? "filled" : ""}`}>&#9733;</span>
-      <span className={`star ${rating >= 4.5 ? "filled" : ""}`}>&#9733;</span>
+    <div className="star-container">
+      {[...Array(fullStars)].map((_, i) => (
+        <StarIcon key={i} className="star" />
+      ))}
+      {hasHalfStar && <StarBorderIcon className="star" />}
+      {[...Array(emptyStars)].map((_, i) => (
+        <StarBorderIcon key={i + fullStars + 1} className="empty-star" />
+      ))}
     </div>
   );
 };

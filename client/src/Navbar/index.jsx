@@ -31,23 +31,23 @@ const Navbar = () => {
     <div className="navbar">
       <nav className="navlinks">
         <a href="/">
-          <FoodBankOutlinedIcon onClick={handleHomeClick} />
+          <FoodBankOutlinedIcon onClick={handleHomeClick} style={{ fontSize: '3rem' }} />
         </a>
         <div className="search-container">
           <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
             <TextField input="text" id="filled-basic" label="Search" variant="filled" onKeyPress={handleSearchPress} />
           </Box>
         </div>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={15}>
           <a href="/post">
             <Chip label="Make a Post" onClick={handlePostClick} />
           </a>
-          <a href="/profile">
+          <a href="/profile/:userID">
             <Chip label="My Profile" onClick={handleProfileClick} />
           </a>
         </Stack>
         <a href="/">
-          <LogoutIcon onClick={handleLogoutClick} />
+          <LogoutIcon onClick={handleLogoutClick} style={{ fontSize: '2rem' }} />
         </a>
       </nav>
     </div>

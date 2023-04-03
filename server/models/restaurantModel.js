@@ -26,7 +26,11 @@ const restaurantSchema = new Schema({
     description: {
         type: String, 
         required: true 
-    } 
+    },
+    followers : { // followers are just an array of User objects
+        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+        
+    }
 },{timestamps: true})
 
 module.exports = mongoose.model('Restaurant', restaurantSchema)

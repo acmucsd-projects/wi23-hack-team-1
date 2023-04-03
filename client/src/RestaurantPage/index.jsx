@@ -4,22 +4,29 @@ import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
 import Navbar from "../Navbar/index.jsx";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+
+const serverURL = 'http://localhost:3000';
 
 const RestaurantPage = () => {
+  const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     // Use axios to send a GET request to the server to retrieve the restaurant data
-    axios.get("/api/restaurant").then((response) => {
+    axios.get(`${serverURL}/restaurant/${id}`).then((response) => {
       setRestaurant(response.data);
     });
 
     // Use axios to send a GET request to the server to retrieve the restaurant's posts
-    axios.get("/api/restaurant/posts").then((response) => {
+    axios.get(`${serverURL}/posts/${id}`).then((response) => {
       setPosts(response.data);
     });
-  }, []);
+  }, [id]);
+
+  // Get the total number of stars for all the posts; total is the accumulator; post is object in array; 0 is initial value
+  const totalStars = posts.reduce((total, post) => total + post.stars, 0);
 
   return (
     <div>
@@ -37,7 +44,7 @@ const RestaurantPage = () => {
                 <div className="res-details">
                   <h2 className="name">{restaurant.name}</h2>
                   <p className="posts">Number of posts: {posts.length}</p>
-                  <StarRating numStars={restaurant.avgStars} />
+                  <StarRating totalPosts={posts.length} totalStars={totalStars} />
                 </div>
               </>
             ) : (
@@ -45,7 +52,7 @@ const RestaurantPage = () => {
             )}
           </div>
           <div className="follower-list">
-            <h2>Friends</h2>
+            <h2>Followers</h2>
             {restaurant && restaurant.followers.length > 0 ? (
               restaurant.followers.map((follower) => (
                 <div className="follower-card" key={follower._id}>

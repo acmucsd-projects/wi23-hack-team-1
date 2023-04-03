@@ -3,58 +3,69 @@ import "./style.css";
 import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
 import Navbar from "../Navbar/index.jsx";
-import axios from "axios";
+import API from "../API";
+import { useParams } from "react-router-dom";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const { userId } = useParams();
 
   useEffect(() => {
-    // Use axios to send a GET request to the server to retrieve the user data
-    axios.get("/api/user").then((response) => {
-      setUser(response.data);
-    });
+    async function fetchData() {
+      try {
+        console.log("Fetching user with id:", userId);
+        const userResponse = await API.getUser(userId);
+        console.log("User response:", userResponse.data);
+        const postResponse = await API.getPosts();
 
-    // Use axios to send a GET request to the server to retrieve the user's posts
-    axios.get("/api/posts").then((response) => {
-      setPosts(response.data);
-    });
-  }, []);
+        setUser(userResponse.data);
+        setPosts(postResponse.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        setUser(null);
+      }
+    }
+
+    fetchData();
+  }, [userId]);
+
+  // Get the total number of stars for all the posts; total is the accumulator; post is object in array; 0 is initial value
+  const totalStars = posts.reduce((total, post) => total + post.stars, 0);
 
   return (
     <div>
-      <Navbar /> {/* include the Navbar component */}
+      <Navbar />
       <div className="container">
         <div className="left-side">
           <div className="user-info">
-            {user ? (
+            {loading ? ( // check if data is still loading
+              <p>Loading user...</p>
+            ) : user ? (
               <>
                 <img
-                  src={user.profilePic}
+                  src={user.image}
                   alt="profile pic"
                   className="profile-picture"
                 />
                 <div className="user-details">
                   <h2 className="name">{user.username}</h2>
-                  <p className="posts">Number of posts: {posts.length}</p>
-                  <StarRating numStars={user.avgStars} />
+                  <p className="posts">Number of posts: {user.postCount}</p>
+                  <StarRating totalPosts={user.postCount} totalStars={totalStars} />
                 </div>
               </>
             ) : (
-              <p>Loading user...</p>
+              <p>No user found</p>
             )}
           </div>
           <div className="friends-list">
             <h2>Friends</h2>
-            {user && user.friends.length > 0 ? (
-              user.friends.map((friend) => (
-                <div className="friend-card" key={friend._id}>
-                  <img src={friend.profilePic} alt={friend.username} />
-                  <div className="friend-card-info">
-                    <div className="friend-name">{friend.username}</div>
-                  </div>
-                </div>
-              ))
+            {user && user.friendCount > 0 ? (
+              <p>{user.friendCount} friends to display</p>
             ) : (
               <p>No friends to display</p>
             )}
@@ -67,7 +78,7 @@ const ProfilePage = () => {
               {posts.length > 0 ? (
                 posts.map((post) => (
                   <div className="post" key={post._id}>
-                    <PostImage image={post.image} link={post.restaurant.url} />
+                    <PostImage image={post.image} />
                   </div>
                 ))
               ) : (

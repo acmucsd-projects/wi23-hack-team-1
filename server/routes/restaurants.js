@@ -20,7 +20,7 @@ router.get('/', getRestaurants);
 router.get('/:id', getRestaurant);
 
 // GET a single restaurants 
-router.get('/', getReviews); //do we need a different path for this? -nic
+router.get('/', getReviews);
 
 // POST a new restaurants 
 router.post('/', createRestaurant);
