@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
+import UserPost from "../UserPost";
 
 const ProfilePage = (props) => {
   return (

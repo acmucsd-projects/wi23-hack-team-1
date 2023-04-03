@@ -1,5 +1,6 @@
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Restaurant = require('../models/restaurantModel');
 const mongoose = require('mongoose')
 const {
     upload
@@ -44,9 +45,23 @@ const createPost = async (req, res) => {
     } = req.body
     // this adds a post document to DB ! 
     try {
+        const userId = mongoose.Types.ObjectId(username);
+        const restaurantId = mongoose.Types.ObjectId(restaurant);
+        // Check if referenced User document exists
+        const userExists = await User.findById(userId);
+        if (!userExists) {
+            throw new Error('User does not exist');
+        }
+        
+        // Check if referenced Restaurant document exists
+        const restaurantExists = await Restaurant.findById(restaurantId);
+        if (!restaurantExists) {
+            throw new Error('Restaurant does not exist');
+        }
         const post = await Post.create({
-            username,
-            restaurant,
+            username: userId,
+            restaurant: restaurantId,
+            image,
             postTitle,
             review,
             stars, 

@@ -24,6 +24,7 @@ const Navbar = () => {
   }
   const handleLogoutClick = () => {
     alert("Logout clicked");
+    localStorage.removeItem('user');
   }
 
   
@@ -46,7 +47,7 @@ const Navbar = () => {
             <Chip label="Clickable" onClick={handleProfileClick} />
           </a>
         </Stack>
-        <a href="/login">
+        <a href="/">
           <LogoutIcon onClick={handleLogoutClick} />
         </a>
       </nav>
