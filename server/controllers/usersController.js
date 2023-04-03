@@ -47,8 +47,10 @@ const createUser = async (req, res) => {
     try {
         const user = await User.create({
             username,
-            profilePic, 
-            friends
+            image,
+            friends,
+            email,
+            password
         })
         res.status(200).json(user)
     } catch (error) {

@@ -17,8 +17,7 @@ const postSchema = new Schema({
         required: true
     },
     image: { // pictures of the food
-        data: Buffer,
-        contentType: String
+        type: String
     }, 
     postTitle: { // title of the post (like reddit lol)
         type: String, 

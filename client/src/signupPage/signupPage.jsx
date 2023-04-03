@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FoodBankOutlinedIcon from '@mui/icons-material/FoodBankOutlined';
 import IconButton from '@mui/material/IconButton'
 import "./signupPage.css";
-import { FormControl, InputAdornment, InputLabel, OutlinedInput, TextField, Button } from "@mui/material";
+import { FormControl, InputAdornment, InputLabel, OutlinedInput, TextField, Button, Link } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from "@mui/icons-material/Visibility";
 import restaurant from './restaurant.jpeg';
@@ -78,6 +78,11 @@ const SignupPage = () => {
                     </FormControl>
                 </div>
                 <Button id="create_account_bttn" variant="contained" onClick={handleCreateUser}>Create your account</Button>
+                <Link sx={{display: "block", 
+                marginTop: "5%", 
+                fontSize: "18px", 
+                fontWeight: 400,
+                color: "#007AFF"}} underline="none" href="/">Back</Link>
             </div>
         </form>
         
