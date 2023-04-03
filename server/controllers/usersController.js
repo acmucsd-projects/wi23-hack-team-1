@@ -1,5 +1,10 @@
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
+const path = require('path');
+const {
+    upload
+} = require("../storage");
+
 // get all users 
 const getUsers = async (req, res) => {
     const users = await User.find({}).sort({
@@ -32,17 +37,16 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     const {
         username,
+        image,
+        friends,
         email,
-        password,
-        profilePic, 
-        friends
+        password
     } = req.body
+    //req.body.image = req.file.path
     // this adds a user document to DB ! 
     try {
         const user = await User.create({
             username,
-            email,
-            password,
             profilePic, 
             friends
         })
@@ -53,6 +57,9 @@ const createUser = async (req, res) => {
         })
     }
 }
+
+
+
 
 // delete a user 
 const deleteUser = async (req, res) => {
@@ -88,8 +95,10 @@ const updateUser = async (req, res) => {
             error: 'No such user'
         })
     }
-    
-    const user = await User.findOneAndUpdate({_id: id}, {
+
+    const user = await User.findOneAndUpdate({
+        _id: id
+    }, {
         ...req.body
     })
 
@@ -101,13 +110,36 @@ const updateUser = async (req, res) => {
     res.status(200).json(user)
 }
 
-// if you want to get all POSTS by USERNAME, look at postsContoller.js
+// router.put("/:id/picture", storage.single("image"), async function
+//UPLOAD PICTURE
+const uploadPicture = async (req, res) => {
+    const id = req.params.id;
+    const potentialUser = await User.findById(id);
+    if (!potentialUser) {
+        return res.status(404).json({
+            error: "User does not exist",
+            id
+        });
+    }
+    const profilePicture = await upload(req.file, id);
+    const user = await User.findByIdAndUpdate(
+        id, {
+            image: profilePicture
+        }, {
+            new: true
+        }
+    );
+    return res.status(200).json({
+        user
+    });
+}
 
 
 module.exports = {
     createUser,
     getUser,
     getUsers,
-    deleteUser, 
-    updateUser
+    deleteUser,
+    updateUser,
+    uploadPicture
 }

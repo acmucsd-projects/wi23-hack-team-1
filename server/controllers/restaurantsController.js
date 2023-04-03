@@ -34,6 +34,7 @@ const getRestaurant = async (req, res) => {
 const createRestaurant = async (req, res) => {
     const {
         title,
+        fillowers,
         location,
         description
     } = req.body
@@ -41,6 +42,7 @@ const createRestaurant = async (req, res) => {
     try {
         const restaurant = await Restaurant.create({
             title,
+            followers,
             location,
             description
         })

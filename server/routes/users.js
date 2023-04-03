@@ -6,8 +6,18 @@ const {
   getUser,
   getUsers,
   deleteUser,
-  updateUser
+  updateUser, 
+  uploadPicture
 } = require('../controllers/usersController')
+
+const fileSizeLimitInBytes = 2 * 1024 * 1024;
+const multer = require("multer");
+const storage = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: fileSizeLimitInBytes
+    },
+});
 
 const User = require('../models/userModel');
 const router = express.Router();
@@ -26,6 +36,10 @@ router.delete('/:id', deleteUser);
 
 // UPDATES a user 
 router.patch('/:id', updateUser);
+
+// upload image 
+router.put("/:id/image", storage.single("image"), uploadPicture) 
+
 
 
 module.exports = router;
