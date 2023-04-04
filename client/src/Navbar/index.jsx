@@ -24,6 +24,7 @@ const Navbar = () => {
   }
   const handleLogoutClick = () => {
     alert("Logout clicked");
+    localStorage.removeItem('user');
   }
 
   

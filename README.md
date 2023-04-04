@@ -1,24 +1,38 @@
-# 💻 MERN stack template
+# FoodIG 
 
-Template for building projects with the MERN (MongoDB, Express, React, Node.js) stack.
-This template was generated using `create-react-app` and `express-generator` for the
-client and server, respectively.
+## Overview
+*Yelp* and *Google Reviews* are written by strangers that you cannot necessarily trust. Our solution is to create an application which creates a more personalized food-rating experience! The application connects you to your friends and allows you to see what/where your friends are eating via posts on a feed.
 
-## Prerequisites
+The UI will be half map (showing locations of the restaurants) / cards (reviews/photos of restaurants) on each person's account.
 
-- Install Node and npm [here](https://nodejs.org/en/download/)
-- Install `yarn` with the command `npm install -g yarn`
-- Set up a [MongoDB Atlas](https://www.mongodb.com/) instance. See [this video](https://www.youtube.com/watch?v=CcOL5h_ZFJM) for help!
-- Create a `.env` file with a variable called `DB_URL` and paste your MongoDB url:
+## Goals 
+### Essential Goals
+1. Connect with other people also interested in trying new food by adding them as friends! You can comment on posts and chat with users(almost like a social media) Basically a [https://letterboxd.com/](https://letterboxd.com/) but for food haha
+2. A map feature where you can drop “pins” for all the food places tried
+3. Authentication features so that people can make accounts
+4. Ability to rate/review/add photos of restaurants and make posts
+5. A feed page where all of your friends posts will show up on one half of the screen, and map on the other half of the screen.
 
-```bash
-DB_URL=mongodb://mongodburl.example.com:portnumber
-```
 
-## Running
+### Stretch goals:
 
-1. `cd` into `client` and run the command `yarn install` to install all dependencies
-2. To start the client, run `yarn start` in the same directory
-3. In another command window, `cd` into `server` and run `yarn install` and `yarn start`
-   to install all dependencies and start the server.
-4. Happy hacking!
+1. Public and private posts
+2. Recap of the year
+3. Discover feature for public profiles
+    * Filters (type, price..)
+4. Suggested restaurants
+5. Link other social media account/phone number
+
+
+## Technical Specifications:
+1. **Database:** [MongoDB Database](https://www.mongodb.com/).
+2. **Backend:** Node.js & Express.js to communicate with the frontend.
+3. **UI/ Frontend:** React.
+4. **APIs:**
+   * People can query a restaurant or a cafe to add a pin on their map using [Google Maps API](https://developers.google.com/maps/documentation/javascript/places#place_search_requests).
+   * There’s also an option to look for nearby places using [this]( https://developers.google.com/maps/documentation/javascript/places#place_search_requests).
+   * Authentication 
+
+## Schema Diagram 
+![schema](schema.png) 
+

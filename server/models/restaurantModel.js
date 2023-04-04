@@ -12,6 +12,10 @@ const restaurantSchema = new Schema({
         type: String, 
         required: true
     }, 
+    followers: {
+        type: Number, 
+        required: true
+    },
     location: {
         // for using the Google Maps API 
         latitude: {

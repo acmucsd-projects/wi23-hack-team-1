@@ -1,7 +1,10 @@
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Restaurant = require('../models/restaurantModel');
 const mongoose = require('mongoose')
-
+const {
+    upload
+} = require("../storage");
 // get all posts 
 const getPosts = async (req, res) => {
     const post = await Post.find({}).sort({
@@ -35,20 +38,34 @@ const createPost = async (req, res) => {
     const {
         username,
         restaurant,
-        image,
         postTitle,
         review,
-        stars
+        stars, 
+        image
     } = req.body
     // this adds a post document to DB ! 
     try {
+        const userId = mongoose.Types.ObjectId(username);
+        const restaurantId = mongoose.Types.ObjectId(restaurant);
+        // Check if referenced User document exists
+        const userExists = await User.findById(userId);
+        if (!userExists) {
+            throw new Error('User does not exist');
+        }
+        
+        // Check if referenced Restaurant document exists
+        const restaurantExists = await Restaurant.findById(restaurantId);
+        if (!restaurantExists) {
+            throw new Error('Restaurant does not exist');
+        }
         const post = await Post.create({
-            username,
-            restaurant,
+            username: userId,
+            restaurant: restaurantId,
             image,
             postTitle,
             review,
-            stars
+            stars, 
+            image
         })
         res.status(200).json(post)
     } catch (error) {
@@ -128,6 +145,29 @@ const getPostsByUsername = async (req, res) => {
 }
 
 
+// upload post image 
+const uploadPostImage  =  async (req, res) => {
+    const id = req.params.id;
+    const potentialPost = await Post.findById(id);
+    if (!potentialPost) {
+        return res.status(404).json({
+            error: "User does not exist",
+            id
+        });
+    }
+    const postImage = await upload(req.file, id);
+    const post = await Post.findByIdAndUpdate(
+        id, {
+            image: postImage
+        }, {
+            new: true
+        }
+    );
+    return res.status(200).json({
+        post
+    });
+}
+
 
 
 module.exports = {
@@ -136,5 +176,6 @@ module.exports = {
     getPosts,
     updatePost,
     deletePost, 
-    getPostsByUsername
+    getPostsByUsername, 
+    uploadPostImage
 }

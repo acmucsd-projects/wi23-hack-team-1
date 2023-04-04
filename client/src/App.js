@@ -6,6 +6,9 @@ import Home from "./Home/Home";
 import Post from "./Post/Post";
 import ProfilePage from "./ProfilePage";
 import RestaurantPage from "./RestaurantPage";
+import Maps from "./Maps/Maps"
+require('dotenv').config()
+
 
 function App() {
   return (
