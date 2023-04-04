@@ -13,7 +13,7 @@ const restaurantsRouter = require('./routes/restaurants');
 //const imagesRouter = require('./routes/images');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(logger('dev'));
 app.use(cors());
@@ -41,5 +41,7 @@ mongoose.connect(process.env.DB_URL, {
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/restaurants', restaurantsRouter);
+
+console.log("PORT: ", port)
 
 module.exports = app;

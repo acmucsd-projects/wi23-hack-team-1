@@ -17,6 +17,8 @@ const ProfilePage = () => {
     async function fetchData() {
       try {
         console.log("Fetching user with id:", userId);
+        const dbusers = await API.getUsers();
+        console.log("Users: ", dbusers);
         const userResponse = await API.getUser(userId);
         console.log("User response:", userResponse.data);
         const postResponse = await API.getPosts();
