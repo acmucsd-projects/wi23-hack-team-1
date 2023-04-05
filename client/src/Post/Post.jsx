@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Rating } from "@mui/material";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import API from "../API";
 import "./Post.css";
@@ -18,7 +19,7 @@ function Post(){
     const [location, setLocation] = useState([0, 0]);
     const [description, setDescription] = useState("");
     const [value, setValue] = useState(0);
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(null);
     const [title, setTitle] = useState("");
     const [review, setReview] = useState("");
     const [restaurant, setRestaurant] = useState("");
@@ -32,22 +33,11 @@ function Post(){
         setDescription(autocomplete.getPlace().formatted_address);
       }
     };
-    const convertToBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-        };
-        fileReader.onerror = (error) => {
-          reject(error);
-        };
-      });
-    };
     const handleFileUpload = async (e) => {
       const file = e.target.files[0];
-      const base64 = await convertToBase64(file);
-      setImage(base64);
+      const form = new FormData();
+      form.append('image', file)
+      setImage(form);
     };
     useEffect(() => {
     const handleRestaurant = async () => {
@@ -59,33 +49,44 @@ function Post(){
             setRestaurant(res._id);
         }
       }
-      if (!restaurantFound) {
+      if (name && !restaurantFound) {
       const restaurant_object = {
         title: name,
+        followers: 1,
         location: {latitude: location[0], longitude: location[1]},
         description: description
       }
+      console.log(restaurant_object)
       const response = await API.createRestaurant(restaurant_object);
       setRestaurant(response.data._id);
+      console.log(restaurant)
       }
     }
+    if (!user) return navigate("/");
     handleRestaurant();
-  }, [location, name, description]);
+  }, [name]);
     const handlePost = async () => {
         const payload = {
           username: user,
           restaurant: restaurant,
-          image: image,
+          image: "",
           postTitle: title,
           review: review,
           stars: value
         };
-        await API.createPost(payload);
+        console.log(payload)
+        const new_post = await API.createPost(payload);
+        const file_upload = await API.uploadPostImage(image, new_post.data._id);
         navigate("/home")
     }
     
     return (
         <div className="post_wrapper">
+          <div className='back_button'>
+          <a href="/home">
+          <ArrowBackIcon sx={{fontSize: "3em"}}></ArrowBackIcon>
+          </a>
+          </div>
             <div className="search-group">
             <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API} libraries={libraries}>
             <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>

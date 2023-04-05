@@ -20,9 +20,10 @@ app.use(cors());
 
 // checks if the request has a body and attaches it to the 
 // request object
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 
 app.use(express.urlencoded({
+  limit: '5mb',
   extended: false
 }));
 

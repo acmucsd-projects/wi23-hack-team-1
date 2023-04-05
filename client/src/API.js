@@ -24,6 +24,9 @@ const API = {
     createPost: function (payload) {
         return axios.post(`${serverURL}/posts/`, payload);
     },
+    uploadPostImage: function (file, id) {
+        return axios.put(`${serverURL}/posts/${id}/image`, file);
+    },
     getRestaurant: function (id) {
         return axios.get(`${serverURL}/restaurants/${id}`);
     },
