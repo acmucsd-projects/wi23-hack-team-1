@@ -34,7 +34,7 @@ const getRestaurant = async (req, res) => {
 const createRestaurant = async (req, res) => {
     const {
         title,
-        fillowers,
+        followers,
         location,
         description
     } = req.body

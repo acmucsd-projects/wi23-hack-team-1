@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from "../Navbar";
 import Maps from "../Maps/Maps";
 import { Card, CardActions, CardMedia, CardContent, Typography, Rating } from '@mui/material';
@@ -12,6 +13,7 @@ function Home(){
     const handlePostClick = async (item) => {
         setSelected(item+1);
     }
+    const navigate = useNavigate();
     useEffect(() => {
     const handlePostDashboard = async () => {
         const all_posts = await API.getPosts();
@@ -34,7 +36,11 @@ function Home(){
             }
         }
     }
+    if (!user) return navigate("/");
     handlePostDashboard();
+    return () => {
+        setPosts([]);
+      };
     }, []);
     return (
         <div className='home_page'>
@@ -45,7 +51,7 @@ function Home(){
                 <Card key={post.id} sx={{ maxWidth: "100%", display: "flex" }}>
                 <CardMedia
                 sx={{ height: 205, width: "50%"}}
-                image={restaurant}
+                image={post.image}
                 />
                     <CardContent sx={{ textAlign: "left"}}>
                         <Typography gutterBottom variant="caption" color="text.secondary" component="div">

@@ -22,7 +22,7 @@ import "./Maps.css";
 
 require('dotenv').config();
 const libraries = ["places"];
-
+const api_key = process.env.REACT_APP_GOOGLE_MAPS_API;
 const Maps = (props) => {
     const center = useMemo( () => ({lat: 44, lng: -80}), []); 
     const markers = props.posts
@@ -35,10 +35,15 @@ const Maps = (props) => {
     useEffect(() => {
         setSelected({lat: markers.length > 0 ? markers[props.selected-1].location.lat : 32.8801,
             lng: markers.length > 0 ? markers[props.selected-1].location.lng : -117.2340})
-        console.log(selected)
-    }, [props.selected]);
+            return () => {
+                setSelected({
+                    lat: 32.8801,
+                    lng: -117.2340
+                  });
+              };
+    }, []);
     return (
-    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API} libraries={libraries}>
+    <LoadScript googleMapsApiKey={api_key} libraries={libraries}>
         <div className="places-container">
                 <PlacesAutocomplete setSelected={setSelected} />
             </div>
