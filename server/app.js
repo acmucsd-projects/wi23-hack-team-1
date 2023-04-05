@@ -43,4 +43,6 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/restaurants', restaurantsRouter);
 
+console.log("PORT: ", port)
+
 module.exports = app;

@@ -1,29 +1,25 @@
 import React from "react";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import "./style.css";
-import { useState } from "react";
 
-const StarRating = () => {
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
-    return (
-      <div className="star-rating">
-        {[...Array(5)].map((star, index) => {
-          index += 1;
-          return (
-            <button
-              type="button"
-              key={index}
-              className={index <= (hover || rating) ? "on" : "off"}
-              onClick={() => setRating(index)}
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(rating)}
-            >
-              <span className="star">&#9733;</span>
-            </button>
-          );
-        })}
-      </div>
-    );
-  };
+const StarRating = ({ totalPosts, totalStars }) => {
+  const averageStars = totalStars / totalPosts;
+  const fullStars = Math.floor(averageStars);
+  const hasHalfStar = averageStars - fullStars >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-  export default StarRating;
+  return (
+    <div className="star-container">
+      {[...Array(fullStars)].map((_, i) => (
+        <StarIcon key={i} className="star" />
+      ))}
+      {hasHalfStar && <StarBorderIcon className="star" />}
+      {[...Array(emptyStars)].map((_, i) => (
+        <StarBorderIcon key={i + fullStars + 1} className="empty-star" />
+      ))}
+    </div>
+  );
+};
+
+export default StarRating;

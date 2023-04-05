@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const serverURL = 'http://localhost:4000'
+const serverURL = 'http://localhost:5000'
 
 const API = {
     getUsers: function() {
@@ -12,6 +12,9 @@ const API = {
     createUser: function (payload) {
         return axios.post(`${serverURL}/users/`, payload);
     },
+    updateUser: function(id, payload) {
+        return axios.patch(`${serverURL}/users/${id}`, payload);
+    },      
     getPost: function (id) {
         return axios.get(`${serverURL}/posts/${id}`);
     },

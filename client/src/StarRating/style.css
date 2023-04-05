@@ -1,12 +1,14 @@
-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
+.star-container {
+  display: flex;
+  align-items: center;
 }
-.on {
-  color: #000;
+
+.star {
+  color: #000000;
+  font-size: 2rem;
 }
-.off {
-  color: #ccc;
+
+.empty-star {
+  color: #dcdcdc;
+  font-size: 2rem;
 }
