@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../Navbar";
 import Maps from "../Maps/Maps";
-import { Card, CardActions, CardMedia, CardContent, Typography, Rating } from '@mui/material';
+import { Card, CardActions, CardMedia, CardContent, Typography, Rating, Button } from '@mui/material';
 import API from '../API';
 import "./Home.css";
-import restaurant from '../restaurant.jpeg';
 function Home(){
     const user = localStorage.getItem('user');
     const [posts, setPosts] = useState([]);
     const [selected, setSelected] = useState(0);
     const handlePostClick = async (item) => {
         setSelected(item+1);
+        console.log(selected)
     }
     const navigate = useNavigate();
     useEffect(() => {
@@ -57,9 +57,16 @@ function Home(){
                         <Typography gutterBottom variant="caption" color="text.secondary" component="div">
                             {post.restaurant}
                         </Typography>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: "600", textDecoration: "underline"}} onClick={() => handlePostClick(index)}>
+                        {/* <Typography variant="h6" component="div" sx={{ fontWeight: "600", textDecoration: "underline"}} onClick={() => handlePostClick(index)}>
                             {post.postTitle}
-                        </Typography>
+                        </Typography> */}
+                        <Button sx={{ fontWeight: "600", 
+                        color: "#080808", 
+                        textAlign: "left",
+                        padding: "0px",
+                        fontSize: "1em"}} onClick={() => handlePostClick(index)}>
+                                {post.postTitle}
+                        </Button>
                         <Typography variant="body2" color="info.main" sx={{ marginBottom: "10%"}}> {post.username}</Typography>
                         <Typography variant="body2">
                         {post.review}

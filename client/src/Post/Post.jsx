@@ -33,18 +33,6 @@ function Post(){
         setDescription(autocomplete.getPlace().formatted_address);
       }
     };
-    const convertToBase64 = (file) => {
-      return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-        };
-        fileReader.onerror = (error) => {
-          reject(error);
-        };
-      });
-    };
     const handleFileUpload = async (e) => {
       const file = e.target.files[0];
       const form = new FormData();

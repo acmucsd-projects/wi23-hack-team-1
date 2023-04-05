@@ -24,7 +24,7 @@ require('dotenv').config();
 const libraries = ["places"];
 const api_key = process.env.REACT_APP_GOOGLE_MAPS_API;
 const Maps = (props) => {
-    const center = useMemo( () => ({lat: 44, lng: -80}), []); 
+    // const center = useMemo( () => ({lat: 44, lng: -80}), []); 
     const markers = props.posts
     const [selected, setSelected] = useState({
         // sets latitude and longitude to first post location but defaults to UCSD
@@ -35,13 +35,7 @@ const Maps = (props) => {
     useEffect(() => {
         setSelected({lat: markers.length > 0 ? markers[props.selected-1].location.lat : 32.8801,
             lng: markers.length > 0 ? markers[props.selected-1].location.lng : -117.2340})
-            return () => {
-                setSelected({
-                    lat: 32.8801,
-                    lng: -117.2340
-                  });
-              };
-    }, []);
+    }, [props.selected]);
     return (
     <LoadScript googleMapsApiKey={api_key} libraries={libraries}>
         <div className="places-container">
