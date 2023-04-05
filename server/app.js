@@ -13,7 +13,7 @@ const restaurantsRouter = require('./routes/restaurants');
 //const imagesRouter = require('./routes/images');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 
 app.use(logger('dev'));
 app.use(cors());
