@@ -6,6 +6,7 @@
     position: relative;
     display: flex;
     width: 100%;
+    height: 100vh;
 }
 
 .left_home {
@@ -14,4 +15,5 @@
 
 .map_page {
     width: 50%;
+    height: 100%;
 }

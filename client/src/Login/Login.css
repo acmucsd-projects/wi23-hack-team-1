@@ -56,6 +56,8 @@ img {
 #or {
     font-size: 20px;
     font-weight: 500;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .form-group {
@@ -73,5 +75,6 @@ img {
 }
 
 .google_login{
-    margin-left: 36%;
+    position: relative;
+    left: 36%;
 }

@@ -32,7 +32,7 @@ function Home(){
                     review: post.review,
                     stars: post.stars
                 }
-                setPosts(posts => posts.concat(post_info))
+                setPosts(posts => posts.concat(post_info));
             }
         }
     }

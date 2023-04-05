@@ -39,7 +39,7 @@ const Navbar = () => {
             <TextField input="text" id="filled-basic" label="Search" variant="filled" onKeyPress={handleSearchPress} /> {/* not implemented */}
           </Box>
         </div>
-        <Stack direction="row" spacing={15}>
+        <Stack direction="row" spacing={3} sx={{marginLeft: "3%"}}>
           <a href="/post">
             <Chip label="Make a Post" onClick={handlePostClick} />
           </a>

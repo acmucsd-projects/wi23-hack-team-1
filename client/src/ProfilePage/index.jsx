@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./style.css";
 import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
 import Navbar from "../Navbar/index.jsx";
 import API from "../API";
 import Chip from '@mui/material/Chip';
+import { Autocomplete, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import { useParams } from "react-router-dom";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [friends, setFriends] = useState([]);
-  const { userId } = useParams();
-  const defaultUser = JSON.parse(localStorage.getItem('user'));
+  const [allUsers, setAllUsers] = useState([]);
+  const current_user = localStorage.getItem('user');
 
-  const handleAddClick = async () => {
-    if (user._id === defaultUser._id || defaultUser.friends.includes(userId)) {
+  const handleAddClick = async (user_selected) => {
+    console.log(user);
+    console.log(user.friends);
+    if (user.friends.includes(user_selected)) {
       return; // If the user is the current user or the user is already a friend, do nothing.
     }
   
     try {
-      const updatedUser = { ...defaultUser, friends: [...defaultUser.friends, userId] }; // Recreates the user object with a new friends list with the added friend.
-      await API.updateUser(defaultUser._id, updatedUser); // Call an API to update the user's friend list in the database.
-      localStorage.setItem('user', JSON.stringify(updatedUser)); // Update the user object in localStorage with the new friend list.
-      setFriends(updatedUser.friends);
+      const updatedUser = { ...user, friends: [...user.friends, user_selected.id] };
+      const new_user = await API.updateUser(current_user, updatedUser); // Call an API to update the user's friend list in the database.
+      setFriends(new_user.data.friends);
     } catch (error) {
       console.log(error);
     }
@@ -38,14 +41,15 @@ const ProfilePage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log("Fetching user with id:", userId);
-        const userResponse = await API.getUser(userId);
-        console.log("User response:", userResponse.data);
+        const userResponse = await API.getUser(current_user);
         const postResponse = await API.getPosts();
+        const allUsersResponse = await API.getUsers();
 
         setUser(userResponse.data);
         setPosts(postResponse.data);
         setFriends(userResponse.data.friends);
+        setAllUsers(allUsersResponse.data.filter(user => user._id !== current_user).map(
+          user => ({ id: user._id, label: user.username })));
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -53,15 +57,16 @@ const ProfilePage = () => {
         setUser(null);
       }
     }
-
+    if (!current_user) return navigate("/");
     fetchData();
-  }, [userId]);
+    return () => {
+      setAllUsers([]);
+    };
+  }, []);
 
   // Get the total number of stars for all the posts; total is the accumulator; post is object in array; 0 is initial value
   const userPosts = posts.filter(post => post.username === user._id);
   const totalStars = userPosts.reduce((total, post) => total + post.stars, 0);
-  
-
   return (
     <div>
       <Navbar />
@@ -79,11 +84,21 @@ const ProfilePage = () => {
                 />
                 <div className="user-details">
                   <h2 className="name">{user.username}</h2>
-                  <Chip
+                  {/* <Chip
                     label="Add friend"
                     onClick={handleAddClick}
                     color="primary"
                     variant="outlined"
+                  /> */}
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={allUsers}
+                    sx={{ width: 200 }}
+                    onChange={(event, newValue) => {
+                      handleAddClick(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Add Friends" />}
                   />
                   <p className="posts">Number of posts: {userPosts.length}</p>
                   <StarRating totalPosts={userPosts.length} totalStars={totalStars} />
