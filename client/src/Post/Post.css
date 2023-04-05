@@ -9,3 +9,8 @@
 .image_upload, .rating, .review {
     margin-bottom: 3%;
 }
+
+.back_button {
+    position: fixed;
+    margin-left: 10%;
+}

@@ -5,7 +5,6 @@ import SignupPage from './signupPage/signupPage';
 import Home from "./Home/Home";
 import Post from "./Post/Post";
 import ProfilePage from "./ProfilePage";
-import Maps from "./Maps/Maps"
 require('dotenv').config()
 
 
