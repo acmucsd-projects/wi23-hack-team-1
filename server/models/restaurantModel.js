@@ -12,9 +12,9 @@ const restaurantSchema = new Schema({
         type: String, 
         required: true
     }, 
-    followers: {
-        type: Number, 
-        required: true
+    followers : { // followers are just an array of User objects
+        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+        
     },
     location: {
         // for using the Google Maps API 
@@ -30,10 +30,6 @@ const restaurantSchema = new Schema({
     description: {
         type: String, 
         required: true 
-    },
-    followers : { // followers are just an array of User objects
-        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-        
     }
 },{timestamps: true})
 

@@ -31,12 +31,12 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <nav className="navlinks">
-        <a href="/">
+        <a href="/home">
           <FoodBankOutlinedIcon onClick={handleHomeClick} style={{ fontSize: '3rem' }} />
         </a>
         <div className="search-container">
           <Box component="form" sx={{'& > :not(style)': { m: 1, width: '25ch' },}} noValidate autoComplete="off">
-            <TextField input="text" id="filled-basic" label="Search" variant="filled" onKeyPress={handleSearchPress} />
+            <TextField input="text" id="filled-basic" label="Search" variant="filled" onKeyPress={handleSearchPress} /> {/* not implemented */}
           </Box>
         </div>
         <Stack direction="row" spacing={15}>

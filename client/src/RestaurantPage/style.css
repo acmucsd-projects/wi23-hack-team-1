@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  margin-left: 100px;
   width: 120%;
 }
 
@@ -55,7 +56,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
-  margin-left: -300px;
+  margin-left: 0px;
 }
 
 .follower-list ul {

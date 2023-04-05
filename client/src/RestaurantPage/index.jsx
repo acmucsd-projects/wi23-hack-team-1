@@ -3,30 +3,49 @@ import "./style.css";
 import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
 import Navbar from "../Navbar/index.jsx";
-import axios from "axios";
+import API from "../API";
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
 import { useParams } from "react-router-dom";
 
-const serverURL = 'http://localhost:3000';
-
 const RestaurantPage = () => {
-  const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const handleAddClick = () => {
+    alert("Restaurant followed"); // not implemented.
+  }
+
+  const { resId } = useParams();
 
   useEffect(() => {
-    // Use axios to send a GET request to the server to retrieve the restaurant data
-    axios.get(`${serverURL}/restaurant/${id}`).then((response) => {
-      setRestaurant(response.data);
-    });
+    async function fetchData() {
+      try {
+        console.log("Fetching restaurant with id:", resId);
+        const resResponse = await API.getRestaurant(resId);
+        console.log("Restaurant response:", resResponse.data);
+        const postResponse = await API.getPosts();
 
-    // Use axios to send a GET request to the server to retrieve the restaurant's posts
-    axios.get(`${serverURL}/posts/${id}`).then((response) => {
-      setPosts(response.data);
-    });
-  }, [id]);
+        setRestaurant(resResponse.data);
+        setPosts(postResponse.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        setRestaurant(null);
+      }
+    }
+
+    fetchData();
+  }, [resId]);
 
   // Get the total number of stars for all the posts; total is the accumulator; post is object in array; 0 is initial value
-  const totalStars = posts.reduce((total, post) => total + post.stars, 0);
+  const resPosts = posts.filter(post => post.restaurant === restaurant._id);
+  const totalStars = resPosts.reduce((total, post) => total + post.stars, 0);
 
   return (
     <div>
@@ -34,36 +53,49 @@ const RestaurantPage = () => {
       <div className="container">
         <div className="left-side">
           <div className="res-info">
-            {restaurant ? (
+            {loading ? ( // check if data is still loading
+              <p>Loading restaurant...</p>
+            ) : restaurant ? (
               <>
                 <img
-                  src={restaurant.image}
-                  alt="restaurant pic"
+                  src={restaurant.image} // meant to take from google maps?
+                  alt="res pic"
                   className="res-picture"
                 />
                 <div className="res-details">
-                  <h2 className="name">{restaurant.name}</h2>
-                  <p className="posts">Number of posts: {posts.length}</p>
-                  <StarRating totalPosts={posts.length} totalStars={totalStars} />
+                  <h2 className="name">{restaurant.title}</h2>
+                  <Chip
+                    label="Follow restaurant"
+                    onClick={handleAddClick}
+                    color="primary"
+                    variant="outlined"
+                  />
+                  <p className="posts">Number of posts: {resPosts.length}</p>
+                  <StarRating totalPosts={resPosts.length} totalStars={totalStars} />
                 </div>
               </>
             ) : (
-              <p>Loading restaurant...</p>
+              <p>No restaurant found</p>
             )}
           </div>
           <div className="follower-list">
-            <h2>Followers</h2>
-            {restaurant && restaurant.followers.length > 0 ? (
-              restaurant.followers.map((follower) => (
-                <div className="follower-card" key={follower._id}>
-                  <img src={follower.profilePic} alt={follower.username} />
-                  <div className="follower-card-info">
-                    <div className="follower-name">{follower.username}</div>
-                  </div>
-                </div>
-              ))
+            <h2>Recent Visitors</h2> {/* decided to make my life easier and do visitors instead of followers */}
+            {resPosts.length > 0 ? (
+              <List>
+                {resPosts.map((visitorId) => {
+                  const visitor = API.getUser(visitorId);
+                  return (
+                    <ListItem key={visitor._id}>
+                      <ListItemAvatar>
+                        <Avatar alt={visitor.username} src={visitor.image} />
+                      </ListItemAvatar>
+                      <ListItemText primary={visitor.username} />
+                    </ListItem>
+                  );
+                })}
+              </List>
             ) : (
-              <p>No followers to display</p>
+              <p>No visitors to display</p>
             )}
           </div>
         </div>
@@ -71,10 +103,10 @@ const RestaurantPage = () => {
           <div className="timeline">
             <h2>Timeline</h2>
             <div className="post-container">
-              {posts.length > 0 ? (
-                posts.map((post) => (
+              {resPosts.length > 0 ? (
+                resPosts.map((post) => (
                   <div className="post" key={post._id}>
-                    <PostImage image={post.image} link={post.user.url} />
+                    <PostImage image={post.image} />
                   </div>
                 ))
               ) : (
