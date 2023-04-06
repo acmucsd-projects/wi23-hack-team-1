@@ -52,19 +52,18 @@ function Post(){
       if (name && !restaurantFound) {
       const restaurant_object = {
         title: name,
-        followers: 1,
+        followers: [],
         location: {latitude: location[0], longitude: location[1]},
         description: description
       }
       console.log(restaurant_object)
       const response = await API.createRestaurant(restaurant_object);
       setRestaurant(response.data._id);
-      console.log(restaurant)
       }
     }
     if (!user) return navigate("/");
     handleRestaurant();
-  }, [name]);
+  }, [name, location]);
     const handlePost = async () => {
         const payload = {
           username: user,

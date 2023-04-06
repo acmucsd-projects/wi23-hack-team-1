@@ -11,9 +11,12 @@
 
 .left_home {
     width: 50%;
+    overflow-y: auto;
 }
 
 .map_page {
+    position: fixed;
+    left: 50%;
     width: 50%;
     height: 100%;
 }

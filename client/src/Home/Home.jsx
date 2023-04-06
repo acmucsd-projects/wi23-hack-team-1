@@ -11,7 +11,6 @@ function Home(){
     const [selected, setSelected] = useState(0);
     const handlePostClick = async (item) => {
         setSelected(item+1);
-        console.log(selected)
     }
     const navigate = useNavigate();
     useEffect(() => {
