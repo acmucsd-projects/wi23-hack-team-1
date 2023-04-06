@@ -4,6 +4,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import "./style.css";
 
 const StarRating = ({ totalPosts, totalStars }) => {
+  if (!totalPosts || !totalStars || typeof totalPosts !== "number" || typeof totalStars !== "number") {
+    return null; // or some other fallback UI if the props are invalid
+  }
+
   const averageStars = totalStars / totalPosts;
   const fullStars = Math.floor(averageStars);
   const hasHalfStar = averageStars - fullStars >= 0.5;

@@ -50,29 +50,11 @@ function Home(){
                 <div className='home_posts'>
                 <Card key={post.id} sx={{ maxWidth: "100%", display: "flex" }}>
                 <CardMedia
-                sx={{ height: 205, width: "50%"}}
+                sx={{ width: "50%"}}
                 image={post.image}
                 />
-                    <CardContent sx={{ textAlign: "left"}}>
-                        <Typography gutterBottom variant="caption" color="text.secondary" component="div">
-                            {post.restaurant}
-                        </Typography>
-                        {/* <Typography variant="h6" component="div" sx={{ fontWeight: "600", textDecoration: "underline"}} onClick={() => handlePostClick(index)}>
-                            {post.postTitle}
-                        </Typography> */}
-                        <Button sx={{ fontWeight: "600", 
-                        color: "#080808", 
-                        textAlign: "left",
-                        padding: "0px",
-                        fontSize: "1em"}} onClick={() => handlePostClick(index)}>
-                                {post.postTitle}
-                        </Button>
-                        <Typography variant="body2" color="info.main" sx={{ marginBottom: "10%"}}> {post.username}</Typography>
-                        <Typography variant="body2">
-                        {post.review}
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
+                    <CardContent sx={{ textAlign: "left", width: "80%"}}>
+                    <CardActions sx={{ padding: "0px", marginBottom: "1%"}}>
                         <Rating
                             name="read-only"
                             value={post.stars}
@@ -81,6 +63,21 @@ function Home(){
                             readOnly
                         />
                     </CardActions>
+                        <Typography gutterBottom variant="caption" color="text.secondary" component="div">
+                            {post.restaurant}
+                        </Typography>
+                        <Button sx={{ fontWeight: "600", 
+                        color: "#080808", 
+                        textAlign: "left",
+                        padding: "0px",
+                        fontSize: "1em"}} onClick={() => handlePostClick(index)}>
+                                {post.postTitle}
+                        </Button>
+                        <Typography variant="body2" color="info.main" sx={{ marginBottom: "5%"}}> {post.username}</Typography>
+                        <Typography variant="body2">
+                        {post.review}
+                        </Typography>
+                    </CardContent>
                 </Card>
                     </div>
                 )}

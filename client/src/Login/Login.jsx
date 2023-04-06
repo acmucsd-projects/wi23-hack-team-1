@@ -58,7 +58,7 @@ function Login() {
           username: USER.name,
           email: USER.email,
           password: bcrypt.hashSync(credentialResponse.credential, salt),
-          profilePic: "placeholder"
+          image: USER.picture
         };
         const response  = await API.createUser(payload);
         localStorage.setItem('user', response.data._id);

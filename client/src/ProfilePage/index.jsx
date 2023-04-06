@@ -5,7 +5,6 @@ import StarRating from "../StarRating/index.jsx";
 import PostImage from "../PostImage/index.jsx";
 import Navbar from "../Navbar/index.jsx";
 import API from "../API";
-import Chip from '@mui/material/Chip';
 import { Autocomplete, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
@@ -23,9 +22,7 @@ const ProfilePage = () => {
   const current_user = localStorage.getItem('user');
 
   const handleAddClick = async (user_selected) => {
-    console.log(user);
-    console.log(user.friends);
-    if (user.friends.includes(user_selected)) {
+    if (user.friends.includes(user_selected.id)) {
       return; // If the user is the current user or the user is already a friend, do nothing.
     }
   
@@ -47,7 +44,10 @@ const ProfilePage = () => {
 
         setUser(userResponse.data);
         setPosts(postResponse.data);
-        setFriends(userResponse.data.friends);
+        for (let friend of userResponse.data.friends){
+            const friend_response = await API.getUser(friend);
+            setFriends(friends => friends.concat(friend_response.data));
+        }
         setAllUsers(allUsersResponse.data.filter(user => user._id !== current_user).map(
           user => ({ id: user._id, label: user.username })));
         setLoading(false);
@@ -77,19 +77,9 @@ const ProfilePage = () => {
               <p>Loading user...</p>
             ) : user ? (
               <>
-                <img
-                  src={user.image}
-                  alt="profile pic"
-                  className="profile-picture"
-                />
+                <Avatar sx={{width: 100, height: 100, marginRight: "10%"}} alt={user.username} src={user.image} />
                 <div className="user-details">
                   <h2 className="name">{user.username}</h2>
-                  {/* <Chip
-                    label="Add friend"
-                    onClick={handleAddClick}
-                    color="primary"
-                    variant="outlined"
-                  /> */}
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
@@ -112,8 +102,7 @@ const ProfilePage = () => {
             <h2>Friends</h2>
             {friends.length > 0 ? (
               <List>
-                {friends.map((friendId) => {
-                  const friend = API.getUser(friendId);
+                {friends.map((friend) => {
                   return (
                     <ListItem key={friend._id}>
                       <ListItemAvatar>

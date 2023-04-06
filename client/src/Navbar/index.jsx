@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 
 const Navbar = () => {
   const handleHomeClick = () => {
-    alert("Home clicked");
+    // alert("Home clicked");
   }
   const handleSearchPress = (event) => {
     if(event.key === 'Enter'){
@@ -17,13 +17,13 @@ const Navbar = () => {
     }
   }
   const handlePostClick = () => {
-    alert("Post clicked");
+   // alert("Post clicked");
   }
   const handleProfileClick = () => {
-    alert("Profile clicked");
+    // alert("Profile clicked");
   }
   const handleLogoutClick = () => {
-    alert("Logout clicked");
+    // alert("Logout clicked");
     localStorage.removeItem('user');
   }
 

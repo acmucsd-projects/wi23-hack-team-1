@@ -13,6 +13,7 @@ const userSchema = new Schema({
     },
     image: { // image 
         type: String,
+        required: true
     }, 
     friends: { // friends are just an array of User objects
         type: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
