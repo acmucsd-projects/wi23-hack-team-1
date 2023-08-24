@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./style.css";
-import StarRating from "../StarRating/index.jsx";
-import PostImage from "../PostImage/index.jsx";
-import Navbar from "../Navbar/index.jsx";
-import API from "../API";
-import { Autocomplete, TextField } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
+// Page Components
+import StarRating from "components/StarRating";
+import PostImage from "components/PostImage";
+import ProfileNavbar from "components/ProfileNavbar";
+import API from "api/API";
+// Mui Components
+import { Autocomplete, TextField, Avatar, List,
+ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -69,7 +67,7 @@ const ProfilePage = () => {
   const totalStars = userPosts.reduce((total, post) => total + post.stars, 0);
   return (
     <div>
-      <Navbar />
+      <ProfileNavbar />
       <div className="container">
         <div className="left-side">
           <div className="user-info">

@@ -1,5 +1,5 @@
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api"
-import { useMemo, useState, useEffect } from "react";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api"
+import { useState, useEffect } from "react";
 
 
 //does heavy lifting of talking w API
@@ -23,15 +23,20 @@ import "./Maps.css";
 require('dotenv').config();
 const libraries = ["places"];
 const api_key = process.env.REACT_APP_GOOGLE_MAPS_API;
+
+
 const Maps = (props) => {
-    // const center = useMemo( () => ({lat: 44, lng: -80}), []); 
-    const markers = props.posts
+    const markers = props.posts;
     const [selected, setSelected] = useState({
         // sets latitude and longitude to first post location but defaults to UCSD
         // if posts are empty
         lat: 32.8801,
         lng: -117.2340
       });
+    const [selectedMarker, setSelectedMarker] = useState(null);
+    const handleMarkerClick = (marker) => {
+        setSelectedMarker(marker); 
+    };
     useEffect(() => {
         setSelected({lat: markers.length > 0 ? markers[props.selected-1].location.lat : 32.8801,
             lng: markers.length > 0 ? markers[props.selected-1].location.lng : -117.2340})
@@ -42,13 +47,25 @@ const Maps = (props) => {
                 <PlacesAutocomplete setSelected={setSelected} />
             </div>
             <GoogleMap zoom={15} center={{lat: selected.lat, lng:selected.lng}} mapContainerClassName="map-container">
-                {/* {selected && <Marker position={selected}/>} */}
-                {markers && markers.map(({ id, location }) => (
+                {markers && markers.map((marker) => (
         <Marker
-          key={id}
-          position={location}
-        ></Marker>))}
-
+          key={marker.id}
+          position={marker.location}
+          onClick={() => handleMarkerClick(marker)}
+        >
+            {marker === selectedMarker && (
+            <InfoWindow
+              position={marker.location}
+              onCloseClick={() => setSelectedMarker(null)}
+            >
+              <div>
+                <h3>{marker.restaurant}</h3>
+              </div>
+            </InfoWindow>
+          )}
+        </Marker>
+         ))}
+        
             </GoogleMap>
     </LoadScript>
     )

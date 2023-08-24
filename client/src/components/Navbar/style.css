@@ -20,3 +20,7 @@
 .search-container {
   flex: 1;
 }
+
+.navbar-logo {
+  display: flex;
+}

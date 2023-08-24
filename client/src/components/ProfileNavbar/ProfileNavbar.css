@@ -1,0 +1,24 @@
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Add this line */
+}
+
+.navlinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding-left: 5%;
+}
+
+.navlinks > * {
+  flex: 1;
+}
+
+.navbar-logo {
+  display: flex;
+}
+

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
-import StarRating from "../StarRating/index.jsx";
-import PostImage from "../PostImage/index.jsx";
-import Navbar from "../Navbar/index.jsx";
-import API from "../API";
-import Chip from '@mui/material/Chip';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
+// Page Components
+import StarRating from "components/StarRating";
+import PostImage from "components/PostImage";
+import Navbar from "components/Navbar";
+import API from "api/API";
+// MUI Components
+import { Chip, Avatar, List, ListItem, 
+  ListItemAvatar, ListItemText } from '@mui/material';
 import { useParams } from "react-router-dom";
 
 const RestaurantPage = () => {
