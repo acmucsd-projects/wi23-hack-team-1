@@ -1,5 +1,10 @@
 .home_posts {
-    margin-bottom: 1%;
+    cursor: pointer;
+    transition-duration: 500ms;
+}
+
+.home_posts:hover {
+    filter: brightness(95%);
 }
 
 .home_page {
@@ -10,13 +15,13 @@
 }
 
 .left_home {
-    width: 50%;
+    width: 55%;
     overflow-y: auto;
 }
 
 .map_page {
     position: fixed;
-    left: 50%;
-    width: 50%;
+    left: 55%;
+    width: 45%;
     height: 100%;
 }

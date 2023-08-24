@@ -1,12 +1,12 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./Login/Login";
-import SignupPage from './signupPage/signupPage';
-import Home from "./Home/Home";
-import Post from "./Post/Post";
-import ProfilePage from "./ProfilePage";
-import RestaurantPage from "./RestaurantPage";
-import Maps from "./Maps/Maps"
+import Login from "pages/Login";
+import SignupPage from "pages/SignupPage";
+import Home from "pages/Home";
+import Post from "pages/Post";
+import ProfilePage from "pages/ProfilePage";
+import RestaurantPage from "pages/RestaurantPage";
+
 require('dotenv').config()
 
 

@@ -4,7 +4,7 @@ import { TextField, Button, Rating } from "@mui/material";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
-import API from "../API";
+import API from "api/API";
 import "./Post.css";
 
 require('dotenv').config();
