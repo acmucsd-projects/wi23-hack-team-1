@@ -21,13 +21,15 @@ const ProfilePage = () => {
 
   const handleAddClick = async (user_selected) => {
     if (user.friends.includes(user_selected.id)) {
+      console.log('New friend data:', user_selected);
       return; // If the user is the current user or the user is already a friend, do nothing.
     }
   
     try {
       const updatedUser = { ...user, friends: [...user.friends, user_selected.id] };
-      const new_user = await API.updateUser(current_user, updatedUser); // Call an API to update the user's friend list in the database.
-      setFriends(new_user.data.friends);
+      const newUser = await API.updateUser(current_user, updatedUser); // Call an API to update the user's friend list in the database.
+      // Fix code so that friend is added without having to do additional api call
+      setFriends((prevFriends) => [...prevFriends, user_selected]);
     } catch (error) {
       console.log(error);
     }
@@ -36,18 +38,30 @@ const ProfilePage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const userResponse = await API.getUser(current_user);
-        const postResponse = await API.getPosts();
-        const allUsersResponse = await API.getUsers();
-
-        setUser(userResponse.data);
-        setPosts(postResponse.data);
-        for (let friend of userResponse.data.friends){
-            const friend_response = await API.getUser(friend);
-            setFriends(friends => friends.concat(friend_response.data));
-        }
-        setAllUsers(allUsersResponse.data.filter(user => user._id !== current_user).map(
-          user => ({ id: user._id, label: user.username })));
+        const [userResponse, postResponse, allUsersResponse] = await Promise.all([
+          API.getUser(current_user),
+          API.getPosts(),
+          API.getUsers()
+        ]);
+        
+        // Sets variables with all the data 
+        const user = userResponse.data;
+        const posts = postResponse.data;
+        const allUsers = allUsersResponse.data.filter(user => user._id !== current_user).map(
+          user => ({ id: user._id, label: user.username }));
+        
+        // Fetch all friends concurrently
+        const friendPromises = user.friends.map(friendId => API.getUser(friendId));
+        const friendResponses = await Promise.all(friendPromises);
+        const friendsData = friendResponses.map(response => response.data);
+        
+        // Updates the states
+        setUser(user);
+        setPosts(posts);
+        setFriends(friendsData);
+        setAllUsers(allUsers);
+        
+        // Loads page once all data is fetched
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -96,18 +110,20 @@ const ProfilePage = () => {
               <p>No user found</p>
             )}
           </div>
+          <h2>Friends</h2>
           <div className="friends-list">
-            <h2>Friends</h2>
             {friends.length > 0 ? (
               <List>
                 {friends.map((friend) => {
                   return (
-                    <ListItem key={friend._id}>
+                    <div className="friend-component" key={friend._id}>
+                    <ListItem>
                       <ListItemAvatar>
                         <Avatar alt={friend.username} src={friend.image} />
                       </ListItemAvatar>
                       <ListItemText primary={friend.username} />
                     </ListItem>
+                    </div>
                   );
                 })}
               </List>
